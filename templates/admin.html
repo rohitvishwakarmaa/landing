@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Admin Panel</h1>
+      <nav>
+        <ul>
+          <li><a href="#projects">Manage Projects</a></li>
+          <li><a href="#clients">Manage Clients</a></li>
+          <li><a href="#contact">Contact Forms</a></li>
+          <li><a href="#subscribers">Subscribers</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Project Management Section -->
+    <section id="projects">
+      <h2>Manage Projects</h2>
+      <form method="POST" action="/admin" id="addProjectForm">
+        <label for="projectImage">Project Image URL</label>
+        <input type="text" name="project_image" id="projectImage" required />
+        <label for="projectName">Project Name</label>
+        <input type="text" name="project_name" id="projectName" required />
+        <label for="projectDescription">Project Description</label>
+        <textarea
+          name="project_description"
+          id="projectDescription"
+          required
+        ></textarea>
+        <button type="submit" name="add_project">Add Project</button>
+      </form>
+      <div class="project-list">
+        <h3>Current Projects</h3>
+        <ul>
+          {% for project in projects %}
+          <li>{{ project.name }} - {{ project.discription }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Client Management Section -->
+    <section id="clients">
+      <h2>Manage Clients</h2>
+      <form method="POST" action="/admin" id="addClientForm">
+        <label for="clientImage">Client Image URL</label>
+        <input type="text" name="client_image" id="clientImage" required />
+        <label for="clientName">Client Name</label>
+        <input type="text" name="client_name" id="clientName" required />
+        <label for="clientDescription">Client Description</label>
+        <textarea
+          name="client_description"
+          id="clientDescription"
+          required
+        ></textarea>
+        <label for="clientDesignation">Client Designation</label>
+        <input
+          type="text"
+          name="client_designation"
+          id="clientDesignation"
+          required
+        />
+        <button type="submit" name="add_client">Add Client</button>
+      </form>
+      <div class="client-list">
+        <h3>Current Clients</h3>
+        <ul>
+          {% for client in clients %}
+          <li>{{ client.name }} - {{ client.designation }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contact Forms Section -->
+    <section id="contact">
+      <h2>Contact Form Submissions</h2>
+      <ul>
+        {% for form in contact_forms %}
+        <li>
+          {{ form.name }} | {{ form.email }} | {{ form.mobile }} | {{ form.city
+          }}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <!-- Subscribed Emails Section -->
+    <section id="subscribers">
+      <h2>Subscribed Emails</h2>
+      <ul>
+        {% for subscription in subscriptions %}
+        <li>{{ subscription.email }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+  </body>
+</html>
